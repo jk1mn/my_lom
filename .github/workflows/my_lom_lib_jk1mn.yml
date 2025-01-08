@@ -1,0 +1,28 @@
+name: my_lom_lib_jk1mn
+
+on:
+  workflow_dispatch:
+  push:
+    branches: 
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    
+    - name: Environment Printer
+      uses: managedkaos/print-env@v1.0
+    
+    - name: Build apps
+      uses: hyoo-ru/mam_build@master2
+      with:
+        package: my/lom
+        modules: lib
+
+    - uses: JS-DevTools/npm-publish@v1
+      with:
+        token: ${{ secrets.NPM_AUTH_TOKEN }}
+        package: ./my/lom/lib/-/package.json
